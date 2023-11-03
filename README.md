@@ -1,27 +1,17 @@
-# React + TypeScript + Vite
+# Projeto criado buscando heróis em Api
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descrição do Projeto
 
-Currently, two official plugins are available:
+Usaremos React com Typescript para criar um site que busca heróis em uma api e mostra seus respectivos dados.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Será utilizado como estilização o Material UI, Styled Components, CSS-Moudles, CSS puro e Tailwind, para fins de estudo geral.
 
-## Expanding the ESLint configuration
+O sistema de combate dos personagens é simples, basta clicar em dois personagens e um modal irá aparecer mostrando o vencedor. Vence aquele que tiver o maior somatório de powerstats.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Para busca de dados será utilizado o Axios.
 
-- Configure the top-level `parserOptions` property like this:
+## Como rodar o projeto
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Para visualizar o projeto, basta clonar o repositório e rodar o comando `npm install` para instalar as dependências e depois `npm start` para rodar o projeto.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Ou apenas acessar o link: <https://busca-herois.netlify.app/>.

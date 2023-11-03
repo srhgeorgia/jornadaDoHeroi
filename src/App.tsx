@@ -1,5 +1,5 @@
 import CardHeroes from "./Components/CardHeroes";
-import "./Style.css";
+import "./styles.module.css";
 
 function App() {
   return <div>
