@@ -1,10 +1,8 @@
-import CardHeroes from "./Components/CardHeroes";
 import "./styles.module.css";
+import Navs from "./Pages/Navs";
 
 function App() {
-  return <div>
-    <CardHeroes />
-  </div>;
+  return <Navs />;
 }
 
 export default App;

@@ -4,7 +4,7 @@
 
 Usaremos React com Typescript para criar um site que busca heróis em uma api e mostra seus respectivos dados.
 
-Será utilizado como estilização o Material UI, Styled Components, CSS-Moudles, CSS puro e Tailwind, para fins de estudo geral.
+Será utilizado como estilização o Material UI, Styled Components, CSS-Moudles, CSS puro, Tailwind e React Icons, para fins de estudo geral.
 
 O sistema de combate dos personagens é simples, basta clicar em dois personagens e um modal irá aparecer mostrando o vencedor. Vence aquele que tiver o maior somatório de powerstats.
 

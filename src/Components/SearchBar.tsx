@@ -12,20 +12,24 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       onSearch(searchText);
-    }, 300); 
+    }, 300);
     return () => clearTimeout(delayDebounceFn);
   }, [searchText, onSearch]);
 
   useEffect(() => {
-    const inputElement = document.getElementById("default-search") as HTMLInputElement;
-    const iconElement = document.querySelector(`.${styles.icon}`) as HTMLElement;
+    const inputElement = document.getElementById(
+      "default-search",
+    ) as HTMLInputElement;
+    const iconElement = document.querySelector(
+      `.${styles.icon}`,
+    ) as HTMLElement;
 
     const handleFocus = () => {
-      iconElement.style.color = "#1A191E"; 
+      iconElement.style.color = "#1A191E";
     };
 
     const handleBlur = () => {
-      iconElement.style.color = "white"; 
+      iconElement.style.color = "#ccc";
     };
 
     inputElement.addEventListener("focus", handleFocus);
