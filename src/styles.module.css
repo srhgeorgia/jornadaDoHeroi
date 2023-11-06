@@ -1,7 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital@1&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital@1&display=swap");
 
 *,
 *::after,
@@ -31,8 +31,8 @@ h3 {
   margin: 0.5rem;
   text-align: center;
   font-weight: bold;
-  color: #ccc;
-  text-shadow: 0.1em 0.1em 0.2em black;
+  color: black;
+  text-shadow: 0.1em 0.1em 0.2em #ccc;
 }
 
 p {
@@ -83,7 +83,7 @@ textarea:focus {
 
 .icon {
   position: absolute;
-  right: 26rem;
+  right: 23.5rem;
   color: #ccc;
 }
 

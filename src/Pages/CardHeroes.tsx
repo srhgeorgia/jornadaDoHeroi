@@ -11,7 +11,6 @@ import {
   DialogContent,
   Grid,
   makeStyles,
-  Typography,
 } from "@material-ui/core";
 import ButtonModal from "../Components/ButtonModal";
 import { GiBroadsword } from "react-icons/gi";
@@ -42,7 +41,8 @@ const useStyles = makeStyles({
   },
   imgCard: {
     cursor: "pointer",
-    boxShadow: "0 0 100px greenyellow",
+    boxShadow: "0 20px 30px",
+    borderRadius: "0 0 1rem 1rem",
   },
   imgOverlay: {
     position: "absolute",
@@ -188,7 +188,7 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
                     }}
                   >
                     <div className={classes.overlayInfo}>
-                      <p>Raça: {hero.appearance.race}</p>
+                      <p>Race: {hero.appearance.race}</p>
                       <p>Intelligence: {hero.powerstats.intelligence}</p>
                       <p>Strength: {hero.powerstats.strength}</p>
                       <p>Speed: {hero.powerstats.speed}</p>

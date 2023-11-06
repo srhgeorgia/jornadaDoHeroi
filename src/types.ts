@@ -11,6 +11,7 @@ export interface HeroData {
     durability: number;
     power: number;
     combat: number;
+    [key: string]: number;
   };
   biography: {
     fullName: string;
