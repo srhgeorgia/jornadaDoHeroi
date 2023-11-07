@@ -6,92 +6,13 @@ import {
   CardActions,
   CardContent,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
   Grid,
-  makeStyles,
 } from "@material-ui/core";
 import ButtonModal from "../Components/ButtonModal";
 import { GiBroadsword } from "react-icons/gi";
 import SearchBar from "../Components/SearchBar";
 import { HeroData } from "../types";
-
-const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
-
-const useStyles = makeStyles({
-  cardContainer: {
-    margin: "1rem",
-    width: "14rem",
-    backgroundColor: getRandomColor(),
-  },
-  cardContent: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "0",
-    position: "relative",
-  },
-  imgCard: {
-    cursor: "pointer",
-    boxShadow: "0 20px 30px",
-    borderRadius: "0 0 1rem 1rem",
-  },
-  imgOverlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    display: "none",
-  },
-  overlayInfo: {
-    position: "absolute",
-    top: "8%",
-    left: "50%",
-    transform: "translateX(-50%)",
-    color: "#fff",
-    fontSize: "1rem",
-    textAlign: "center",
-  },
-  totalPower: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: "8px",
-  },
-  sword: {
-    fontSize: "20px",
-    marginRight: "5px",
-  },
-  buttonImg: {
-    padding: "0",
-  },
-  cardAction: {
-    backgroundColor: "#ccc",
-  },
-  buttonBackground: {
-    backgroundColor: "#363582",
-    color: "#fff",
-    margin: "1rem",
-    "&:hover": {
-      background: "#fff",
-      color: "#363582",
-    },
-  },
-  headerCard: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-});
+import useStyles from "./CardHeroesStyles";
 
 interface ButtonModalProps {
   hero?: HeroData;
@@ -99,17 +20,10 @@ interface ButtonModalProps {
 
 const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
   const classes = useStyles();
-  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedHeroes, setSelectedHeroes] = useState<HeroData[]>([]);
   const [heroes, setHeroes] = useState<HeroData[]>([]);
   const [searchText, setSearchText] = useState<string>("");
-  const [selectedHeroForDetails, setSelectedHeroForDetails] =
-    useState<HeroData | null>(null);
   const [hoveredCard, setHoveredCard] = useState<HeroData | null>(null);
-
-  const handleCloseDetails = () => {
-    setShowDetailsModal(false);
-  };
 
   const handleMouseEnter = (selectedHero: HeroData) => {
     setHoveredCard(selectedHero);
@@ -135,7 +49,12 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
         );
         const data: HeroData[] = response.data;
 
-        setHeroes(data);
+        const heroesWithTotalPower = data.map((hero) => ({
+          ...hero,
+          totalPower: calculateTotalPower(hero),
+        }));
+
+        setHeroes(heroesWithTotalPower);
       } catch (error) {
         console.error("Erro ao buscar heróis:", error);
       }
@@ -144,16 +63,16 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
     fetchHeroes();
   }, []);
 
-  const calculateTotalPower = heroes.map((power) => {
+  const calculateTotalPower = (hero: HeroData) => {
     return (
-      power.powerstats.intelligence +
-      power.powerstats.strength +
-      power.powerstats.speed +
-      power.powerstats.durability +
-      power.powerstats.power +
-      power.powerstats.combat
+      hero.powerstats.intelligence +
+      hero.powerstats.strength +
+      hero.powerstats.speed +
+      hero.powerstats.durability +
+      hero.powerstats.power +
+      hero.powerstats.combat
     );
-  });
+  };
 
   return (
     <Container>
@@ -164,7 +83,7 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
         <SearchBar onSearch={setSearchText} />{" "}
       </div>
       <Grid container spacing={1}>
-        {filteredHeroes.map((hero, index) => (
+        {filteredHeroes.map((hero) => (
           <div key={hero.id}>
             <Grid container item spacing={1}>
               <Card
@@ -200,7 +119,7 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
                   <h2>{hero.name.toUpperCase()}</h2>
                   <div className={classes.totalPower}>
                     <GiBroadsword className={classes.sword} />
-                    <p>{calculateTotalPower[index]}</p>
+                    <p>{hero.totalPower}</p>
                   </div>
                 </CardContent>
                 <CardActions className={classes.cardAction}>
@@ -216,37 +135,6 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
           </div>
         ))}
       </Grid>
-      <Dialog open={showDetailsModal} onClose={handleCloseDetails}>
-        {selectedHeroForDetails && (
-          <div>
-            <DialogContent>
-              <img
-                src={selectedHeroForDetails.images.sm}
-                alt={selectedHeroForDetails.name}
-              />
-              <div>
-                <h3>{selectedHeroForDetails.name.toUpperCase()}</h3>
-                <p>Raça: {selectedHeroForDetails.appearance.race}</p>
-                <p>
-                  Intelligence: {selectedHeroForDetails.powerstats.intelligence}
-                </p>
-                <p>Strength: {selectedHeroForDetails.powerstats.strength}</p>
-                <p>Speed: {selectedHeroForDetails.powerstats.speed}</p>
-                <p>
-                  Durability: {selectedHeroForDetails.powerstats.durability}
-                </p>
-                <p>Power: {selectedHeroForDetails.powerstats.power}</p>
-                <p>Combat: {selectedHeroForDetails.powerstats.combat}</p>
-              </div>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseDetails} color="primary">
-                Fechar
-              </Button>
-            </DialogActions>
-          </div>
-        )}
-      </Dialog>
     </Container>
   );
 });

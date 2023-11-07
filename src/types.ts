@@ -1,6 +1,7 @@
 export interface HeroData {
   id: number;
   name: string;
+  totalPower: number;
   appearance: {
     race: string;
   };
