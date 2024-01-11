@@ -7,21 +7,21 @@ const useStyles = makeStyles({
     justifyContent: "center",
     fontSize: "10px",
     boxSizing: "border-box",
-    backgroundColor: "#363582",
-    color: "#fff",
+    color: "#6E6C6C",
+    padding: "0rem",
     "&:hover": {
-      background: "#fff",
-      color: "#363582",
+      opacity: "0.4",
+      transition: "0.2s",
     },
   },
   selectedButton: {
-    backgroundColor: "#fff",
-    color: "#363582",
+    color: "#FF0200",
   },
   buttonsModal: {
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
+    padding: "0 0.8rem",
   },
   cardModal: {
     display: "flex",
@@ -30,8 +30,8 @@ const useStyles = makeStyles({
   cardModalExternal: {
     "& .MuiDialog-paperWidthSm": {
       maxWidth: "100%",
-      backgroundColor: "rgba(0, 0, 0, 0.9)",
-      boxShadow: "0 0 20px white",
+      backgroundColor: "#F4F4F4",
+      boxShadow: "0 3px 8px -3px rgba(0,0,0,.2)",
     },
   },
   heroInfo: {
@@ -39,20 +39,18 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    color: "#fff",
+    color: "black",
   },
   heroInfoP: {
     display: "flex",
     flexDirection: "column",
     marginLeft: "1rem",
-    alignItems: "center",
   },
   winner: {
     textAlign: "center",
     fontWeight: "bold",
     fontSize: "1.5rem",
-    color: "#fff",
-    textShadow: "0.1em 0.1em 1.2em #ccc",
+    color: "black",
   },
   winnerText: {
     color: "#27D11F",
@@ -61,14 +59,21 @@ const useStyles = makeStyles({
     fontSize: "20px",
     marginRight: "5px",
   },
-  imgModal: {
-    boxShadow: "0 0 30px",
-    borderRadius: "1rem",
-  },
   divInfo: {
+    backgroundColor: "#016B79",
+    padding: "2rem",
+    borderRadius: "8px",
+    boxShadow: "0 3px 8px -3px rgba(0,0,0,.2)",
+  },
+  contentInfo: {
+    backgroundColor: "#FFFFFF",
+    padding: "1rem",
+    borderRadius: "8px",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
+    boxShadow: "0 3px 8px -3px rgba(0,0,0,.2)",
   },
 });
 

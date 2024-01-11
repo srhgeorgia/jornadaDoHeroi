@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styles from "../styles.module.css";
 import { FaSearch } from "react-icons/fa";
+import useStyles from "./SearchBarStyles";
 
 interface SearchBarProps {
   onSearch: (searchText: string) => void;
@@ -8,6 +8,8 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchText, setSearchText] = useState("");
+  const classes = useStyles();
+
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -21,7 +23,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       "default-search",
     ) as HTMLInputElement;
     const iconElement = document.querySelector(
-      `.${styles.icon}`,
+      `.${classes.icon}`,
     ) as HTMLElement;
 
     const handleFocus = () => {
@@ -39,20 +41,20 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       inputElement.removeEventListener("focus", handleFocus);
       inputElement.removeEventListener("blur", handleBlur);
     };
-  }, []);
+  }, [classes.icon]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
   };
 
   return (
-    <div className={styles.searchBarExternal}>
-      <FaSearch className={styles.icon} />
+    <div className={classes.searchBarExternal}>
+      <FaSearch className={classes.icon} />
       <input
         type="search"
         id="default-search"
-        className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search Heroes by Name"
+        className={classes.input}
         value={searchText}
         onChange={handleSearchChange}
         required

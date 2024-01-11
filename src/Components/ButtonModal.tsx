@@ -10,10 +10,6 @@ import {
 } from "@material-ui/core";
 import { HeroData } from "../types";
 import { GiBattleGear } from "react-icons/gi";
-import { BiShow } from "react-icons/bi";
-import { AiOutlineArrowUp } from "react-icons/ai";
-import { AiOutlineArrowDown } from "react-icons/ai";
-import { FaEquals } from "react-icons/fa";
 import useStyles from "./ButtonModalStyles";
 
 interface ButtonModalProps {
@@ -39,48 +35,6 @@ const AlertModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   );
 };
 
-const compareAttributes = (hero1: HeroData, hero2: HeroData) => {
-  const attributes = [
-    "intelligence",
-    "strength",
-    "speed",
-    "durability",
-    "power",
-    "combat",
-  ];
-
-  const comparisonResult: { [key: string]: React.ReactNode } = {};
-
-  for (const attribute of attributes) {
-    const hero1Value = hero1.powerstats[attribute];
-    const hero2Value = hero2.powerstats[attribute];
-
-    if (hero1Value > hero2Value) {
-      comparisonResult[attribute] = (
-        <span style={{ display: "flex" }}>
-          {`${hero1}`} <AiOutlineArrowUp style={{ color: "green" }} />
-          {`${hero2}`} <AiOutlineArrowDown style={{ color: "red" }} />
-        </span>
-      );
-    } else if (hero2Value > hero1Value) {
-      comparisonResult[attribute] = (
-        <span style={{ display: "flex" }}>
-          {`${hero2}`} <AiOutlineArrowUp style={{ color: "green" }} />
-          {`${hero1}`} <AiOutlineArrowDown style={{ color: "red" }} />
-        </span>
-      );
-    } else {
-      comparisonResult[attribute] = (
-        <span>
-          <FaEquals />
-        </span>
-      );
-    }
-  }
-
-  return comparisonResult;
-};
-
 const ButtonModal: React.FC<ButtonModalProps> = React.memo(
   ({ hero, selectedHeroes, setSelectedHeroes }) => {
     const classes = useStyles();
@@ -88,17 +42,6 @@ const ButtonModal: React.FC<ButtonModalProps> = React.memo(
       useState(false);
     const [showAlertModal, setShowAlertModal] = useState(false);
     const [winner, setWinner] = useState<string | null>(null);
-    const [attributeComparison, setAttributeComparison] = useState<{
-      [key: string]: React.ReactNode;
-    } | null>(null);
-
-    const handleOpenSelectedHeroes = () => {
-      if (selectedHeroes.length === 0) {
-        setShowAlertModal(true);
-      } else {
-        setShowSelectedHeroesModal(true);
-      }
-    };
 
     const handleCloseSelectedHeroes = () => {
       setShowSelectedHeroesModal(false);
@@ -135,13 +78,6 @@ const ButtonModal: React.FC<ButtonModalProps> = React.memo(
         } else {
           setWinner("Empate");
         }
-
-        const comparisonResult = compareAttributes(
-          selectedHeroes[0],
-          selectedHeroes[1],
-        );
-        setAttributeComparison(comparisonResult);
-
         setShowSelectedHeroesModal(true);
       }
     };
@@ -168,15 +104,7 @@ const ButtonModal: React.FC<ButtonModalProps> = React.memo(
               onClick={handleChooseChampion}
             >
               <GiBattleGear className={classes.iconBattle} />
-            </Button>
-          </Tooltip>
-
-          <Tooltip title="Ver campeões" arrow>
-            <Button
-              className={classes.buttonModal}
-              onClick={handleOpenSelectedHeroes}
-            >
-              <BiShow className={classes.iconBattle} />
+              <h3>Choose Champion</h3>
             </Button>
           </Tooltip>
         </div>
@@ -195,43 +123,40 @@ const ButtonModal: React.FC<ButtonModalProps> = React.memo(
               {selectedHeroes.map((selectedHero) => (
                 <div key={selectedHero.id} className={classes.heroInfo}>
                   <div className={classes.divInfo}>
-                    <img
-                      className={classes.imgModal}
-                      src={selectedHero.images.sm}
-                      alt={selectedHero.name}
-                    />
-                    <Typography variant="h6">{selectedHero.name}</Typography>
+                    <div className={classes.contentInfo}>
+                      <img
+                        src={selectedHero.images.sm}
+                        alt={selectedHero.name}
+                      />
+                      <h2>{selectedHero.name}</h2>
+                      <p>
+                        Total Power: <b>{calculateTotalPower(selectedHero)}</b>
+                      </p>
+                    </div>
                   </div>
+
                   <div className={classes.heroInfoP}>
-                    {attributeComparison && (
-                      <>
-                        <p>
-                          Intelligence: {selectedHero.powerstats.intelligence}{" "}
-                          {attributeComparison.intelligence}
-                        </p>
-                        <p>
-                          Strength: {selectedHero.powerstats.strength}{" "}
-                          {attributeComparison.strength}
-                        </p>
-                        <p>
-                          Speed: {selectedHero.powerstats.speed}{" "}
-                          {attributeComparison.speed}
-                        </p>
-                        <p>
-                          Durability: {selectedHero.powerstats.durability}{" "}
-                          {attributeComparison.durability}
-                        </p>
-                        <p>
-                          Power: {selectedHero.powerstats.power}{" "}
-                          {attributeComparison.power}
-                        </p>
-                        <p>
-                          Combat: {selectedHero.powerstats.combat}{" "}
-                          {attributeComparison.combat}
-                        </p>
-                      </>
-                    )}
-                    <p>Total Power: {calculateTotalPower(selectedHero)}</p>
+                    <>
+                      <p>
+                        Intelligence:{" "}
+                        <b>{selectedHero.powerstats.intelligence}</b>{" "}
+                      </p>
+                      <p>
+                        Strength: <b>{selectedHero.powerstats.strength}</b>{" "}
+                      </p>
+                      <p>
+                        Speed: <b>{selectedHero.powerstats.speed}</b>{" "}
+                      </p>
+                      <p>
+                        Durability: <b>{selectedHero.powerstats.durability}</b>{" "}
+                      </p>
+                      <p>
+                        Power: <b>{selectedHero.powerstats.power}</b>{" "}
+                      </p>
+                      <p>
+                        Combat: <b>{selectedHero.powerstats.combat}</b>{" "}
+                      </p>
+                    </>
                   </div>
                 </div>
               ))}
@@ -250,7 +175,7 @@ const ButtonModal: React.FC<ButtonModalProps> = React.memo(
         {showAlertModal && <AlertModal onClose={handleAlertModalClose} />}
       </>
     );
-  },
+  }
 );
 
 export default ButtonModal;

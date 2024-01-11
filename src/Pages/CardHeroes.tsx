@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -33,10 +32,6 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
     setHoveredCard(null);
   };
 
-  const reloadPage = () => {
-    window.location.reload();
-  };
-
   const filteredHeroes = heroes.filter((hero) => {
     return hero.name.toLowerCase().includes(searchText.toLowerCase());
   });
@@ -45,7 +40,7 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
     const fetchHeroes = async () => {
       try {
         const response = await axios.get(
-          "http://homologacao3.azapfy.com.br/api/ps/metahumans",
+          "http://homologacao3.azapfy.com.br/api/ps/metahumans"
         );
         const data: HeroData[] = response.data;
 
@@ -75,11 +70,8 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
   };
 
   return (
-    <Container>
+    <Container className={classes.containerPrincipal}>
       <div className={classes.headerCard}>
-        <Button className={classes.buttonBackground} onClick={reloadPage}>
-          <p>Change cards background</p>
-        </Button>
         <SearchBar onSearch={setSearchText} />{" "}
       </div>
       <Grid container spacing={1}>
@@ -92,43 +84,63 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
                 onMouseLeave={handleMouseLeave}
               >
                 <CardContent className={classes.cardContent}>
-                  <img
-                    className={classes.imgCard}
-                    src={hero.images.sm}
-                    alt={hero.name}
-                  />
-                  <div
-                    className={classes.imgOverlay}
-                    style={{
-                      display:
-                        hoveredCard && hoveredCard.id === hero.id
-                          ? "block"
-                          : "none",
-                    }}
-                  >
-                    <div className={classes.overlayInfo}>
-                      <p>Race: {hero.appearance.race}</p>
-                      <p>Intelligence: {hero.powerstats.intelligence}</p>
-                      <p>Strength: {hero.powerstats.strength}</p>
-                      <p>Speed: {hero.powerstats.speed}</p>
-                      <p>Durability: {hero.powerstats.durability}</p>
-                      <p>Power: {hero.powerstats.power}</p>
-                      <p>Combat: {hero.powerstats.combat}</p>
+                  <div className={classes.container}>
+                    <img
+                      className={classes.imgCard}
+                      src={hero.images.sm}
+                      alt={hero.name}
+                    />
+                    <div
+                      className={classes.imgOverlay}
+                      style={{
+                        display:
+                          hoveredCard && hoveredCard.id === hero.id
+                            ? "block"
+                            : "none",
+                      }}
+                    >
+                      <div className={classes.overlayInfo}>
+                        <p>
+                          Race: <b>{hero.appearance.race}</b>
+                        </p>
+                        <p>
+                          Intelligence: <b>{hero.powerstats.intelligence}</b>
+                        </p>
+                        <p>
+                          Strength: <b>{hero.powerstats.strength}</b>
+                        </p>
+                        <p>
+                          Speed: <b>{hero.powerstats.speed}</b>
+                        </p>
+                        <p>
+                          Durability: <b>{hero.powerstats.durability}</b>
+                        </p>
+                        <p>
+                          Power:<b> {hero.powerstats.power}</b>
+                        </p>
+                        <p>
+                          Combat: <b>{hero.powerstats.combat}</b>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <h2>{hero.name.toUpperCase()}</h2>
-                  <div className={classes.totalPower}>
-                    <GiBroadsword className={classes.sword} />
-                    <p>{hero.totalPower}</p>
+                    <h2 className={classes.heroName}>
+                      {hero.name.toUpperCase()}
+                    </h2>
+                    <div className={classes.totalPower}>
+                      <GiBroadsword className={classes.sword} />
+                      <p>{hero.totalPower}</p>
+                    </div>
                   </div>
                 </CardContent>
                 <CardActions className={classes.cardAction}>
-                  <ButtonModal
-                    key={hero.id}
-                    hero={hero}
-                    selectedHeroes={selectedHeroes}
-                    setSelectedHeroes={setSelectedHeroes}
-                  />
+                  <div className={classes.buttonsModal}>
+                    <ButtonModal
+                      key={hero.id}
+                      hero={hero}
+                      selectedHeroes={selectedHeroes}
+                      setSelectedHeroes={setSelectedHeroes}
+                    />
+                  </div>
                 </CardActions>
               </Card>
             </Grid>
