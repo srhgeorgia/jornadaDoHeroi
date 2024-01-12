@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     top: "5%",
-    left: "60%",
+    left: "63%",
     transform: "translateX(-50%)",
     color: "#FFFFFF",
     padding: "0",

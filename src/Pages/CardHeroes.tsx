@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -40,7 +41,7 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
     const fetchHeroes = async () => {
       try {
         const response = await axios.get(
-          "http://homologacao3.azapfy.com.br/api/ps/metahumans"
+          "https://akabab.github.io/superhero-api/api/all.json"
         );
         const data: HeroData[] = response.data;
 
