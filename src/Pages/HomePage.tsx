@@ -26,7 +26,7 @@ export const HomePage = () => {
               </a>
             </div>
             <img
-              src="/src/assets/spiderGirl.jpg"
+              src="https://cdn.pixabay.com/photo/2017/07/06/18/48/spider-girl-2478975_1280.jpg"
               alt=""
               className={styles.imagem}
             />

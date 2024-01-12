@@ -1,4 +1,3 @@
-import React from "react";
 import { useRoutes } from "react-router-dom";
 import CardHeroes from "./Pages/CardHeroes";
 import HomePage from "./Pages/HomePage";
