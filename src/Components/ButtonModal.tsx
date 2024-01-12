@@ -52,7 +52,7 @@ const ButtonModal: React.FC<ButtonModalProps> = React.memo(
     };
 
     const handleChooseChampion = () => {
-      const heroIndex = selectedHeroes.findIndex((h) => h === hero);
+      const heroIndex = selectedHeroes.findIndex((h) => h.id === hero.id);
 
       if (heroIndex !== -1) {
         selectedHeroes.splice(heroIndex, 1);

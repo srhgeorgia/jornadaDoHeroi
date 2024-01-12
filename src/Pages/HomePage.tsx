@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./home.module.css";
 
 export const HomePage = () => {
@@ -52,7 +51,7 @@ export const HomePage = () => {
               <p className={styles.description}>
                 Neste projeto, a API do SuperHero foi empregada para a busca de
                 heróis. Do ponto de vista técnico, foram utilizados ReactJS,
-                TypeScript, Styled-Components e Axios. O React-Router-Dom foi
+                TypeScript e Styled-Components. O React-Router-Dom foi
                 empregado para facilitar a navegação entre as páginas, enquanto
                 módulos de CSS foram adotados para estilização e estudos. Uma
                 estrutura de pastas foi implementada para uma organização mais

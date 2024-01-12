@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -12,6 +11,8 @@ import ButtonModal from "../Components/ButtonModal";
 import { GiBroadsword } from "react-icons/gi";
 import SearchBar from "../Components/SearchBar";
 import { HeroData } from "../types";
+import { dataHeroes } from "../data/dataHeroes";
+
 import useStyles from "./CardHeroesStyles";
 
 interface ButtonModalProps {
@@ -21,7 +22,6 @@ interface ButtonModalProps {
 const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
   const classes = useStyles();
   const [selectedHeroes, setSelectedHeroes] = useState<HeroData[]>([]);
-  const [heroes, setHeroes] = useState<HeroData[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [hoveredCard, setHoveredCard] = useState<HeroData | null>(null);
 
@@ -32,32 +32,6 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
   const handleMouseLeave = () => {
     setHoveredCard(null);
   };
-
-  const filteredHeroes = heroes.filter((hero) => {
-    return hero.name.toLowerCase().includes(searchText.toLowerCase());
-  });
-
-  useEffect(() => {
-    const fetchHeroes = async () => {
-      try {
-        const response = await axios.get(
-          "https://akabab.github.io/superhero-api/api/all.json"
-        );
-        const data: HeroData[] = response.data;
-
-        const heroesWithTotalPower = data.map((hero) => ({
-          ...hero,
-          totalPower: calculateTotalPower(hero),
-        }));
-
-        setHeroes(heroesWithTotalPower);
-      } catch (error) {
-        console.error("Erro ao buscar heróis:", error);
-      }
-    };
-
-    fetchHeroes();
-  }, []);
 
   const calculateTotalPower = (hero: HeroData) => {
     return (
@@ -70,10 +44,14 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
     );
   };
 
+  const filteredHeroes = dataHeroes.filter((hero) =>
+    hero.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <Container className={classes.containerPrincipal}>
       <div className={classes.headerCard}>
-        <SearchBar onSearch={setSearchText} />{" "}
+        <SearchBar onSearch={setSearchText} />
       </div>
       <Grid container spacing={1}>
         {filteredHeroes.map((hero) => (
@@ -108,19 +86,19 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
                           Intelligence: <b>{hero.powerstats.intelligence}</b>
                         </p>
                         <p>
-                          Strength: <b>{hero.powerstats.strength}</b>
+                          strength: <b>{hero.powerstats.strength}</b>
                         </p>
                         <p>
-                          Speed: <b>{hero.powerstats.speed}</b>
+                          speed: <b>{hero.powerstats.speed}</b>
                         </p>
                         <p>
-                          Durability: <b>{hero.powerstats.durability}</b>
+                          durability: <b>{hero.powerstats.durability}</b>
                         </p>
                         <p>
-                          Power:<b> {hero.powerstats.power}</b>
+                          power: <b>{hero.powerstats.power}</b>
                         </p>
                         <p>
-                          Combat: <b>{hero.powerstats.combat}</b>
+                          combat: <b>{hero.powerstats.combat}</b>
                         </p>
                       </div>
                     </div>
@@ -129,7 +107,7 @@ const CardHeroes: React.FC<ButtonModalProps> = React.memo(({ hero }) => {
                     </h2>
                     <div className={classes.totalPower}>
                       <GiBroadsword className={classes.sword} />
-                      <p>{hero.totalPower}</p>
+                      <p>{calculateTotalPower(hero)}</p>
                     </div>
                   </div>
                 </CardContent>
