@@ -12,6 +12,6 @@ Será utilizado como estilização o Material UI, Styled Components, CSS-Moudles
 
 Para visualizar o projeto, basta clonar o repositório e rodar o comando `yarn install` para instalar as dependências e depois `yarn dev` para rodar o projeto.
 
-Ou apenas acessar o link: <https://busca-herois.netlify.app/](https://jornada-do-heroi-7c48.vercel.app/)https://jornada-do-heroi-7c48.vercel.app/>.
+Ou apenas acessar o link: <https://jornada-do-heroi-7c48.vercel.app/>.
 
 Boa batalha!
